@@ -1,42 +1,57 @@
+/// SVG SETUP ///
 
+// svg height and width
+let svgWidth = 1000;
+let svgHeight = 650;
 
+// svg borders
+let margin = {
+    top: 20,
+    bottom: 200,
+    left: 100,
+    right: 40,
+};
 
-//         // SVG SETUP //
-// // svg height and width
-// let svgWidth = 1000;
-// let svgHeight = 650;
+// calculate chart height and width
+let width = svgWidth - margin.right - margin.left;
+let height = svgHeight - margin.top - margin.bottom;
 
-// // svg borders
-// let margin = {
-//     top: 20,
-//     bottom: 200,
-//     left: 100,
-//     right: 40,
-// };
+// append div class to scatter element
+let chart = d3.select('#scatter')
+    .append('div') 
+    .classed('chart', true);
 
-// // calculate chart height and width
-// let width = svgWidth - margin.right - margin.left;
-// let height = svgHeight - margin.top - margin.bottom;
+// append svg element to chart
+let svg = chart.append('svg')
+    .attr('width', svgWidth)
+    .attr('height', svgHeight);
 
-// // append div class to scatter element
-// let chart = d3.select('#scatter')
-//     .append('div') 
-//     .classed('chart', true);
+// append svg group
+let chartGroup = svg.append('g')
+.attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-// // append svg element to chart
-// let svg = chart.append('svg')
-//     .attr('width', svgWidth)
-//     .attr('height', svgHeight);
+let chosenXAxis = 'poverty';
+let chosenYAxis = 'healthcare';
 
-// // append svg group
-// let chartGroup = svg.append('g')
-// .attr('transform', `translate(${margin.left}, ${margin.top})`);
+/// FUNCTIONS ///
 
-// let chosenXAxis = 'poverty';
-// let chosenYAxis = 'healthcare';
+// update x-scale variable upon click
+function xScale(censusData, chosenXAxis) {
+    let xLinearScale = d3.scaleLinear()
+        .domain([d3.min(censusData, d => d[chosenXAxis]) * 0.8,
+            d3.max(censusData, d => d[chosenXAxis]) * 1.2])
+        .range([0, width]);
+    return xLinearScale;
+}
 
-
-
+// update y-scale variable upon click
+function yScale(censusData, chosenXAxis) {
+    let xLinearScale = d3.scaleLinear()
+        .domain([d3.min(censusData, d => d[chosenXAxis]) * 0.8,
+            d3.max(censusData, d => d[chosenXAxis]) * 1.2])
+        .range([0, width]);
+    return xLinearScale;
+}
 
 
 
