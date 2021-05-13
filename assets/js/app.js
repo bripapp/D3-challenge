@@ -53,8 +53,27 @@ function yScale(censusData, chosenXAxis) {
     return xLinearScale;
 }
 
+// update xAxis on click
+function renderXAxis(newXScale, xAxis) {
+    let bottomAxis = d3.axisBottom(newXScale);
 
+    xAxis.transition()
+        .duration(2000)
+        .call(bottomAxis);
 
+    return xAxis;
+}
+
+// update yAxis on click
+function renderYAxis(newYScale, yAxis) {
+    var leftAxis = d3.axisLeft(newYScale);
+  
+    yAxis.transition()
+      .duration(2000)
+      .call(leftAxis);
+  
+    return yAxis;
+  }
 
 
 // RETRIEVE DATA //
